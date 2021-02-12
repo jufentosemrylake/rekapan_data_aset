@@ -36,11 +36,11 @@ if (isset($_POST["aptLap"])) {
   }
 }
 $jumdatph = 10;
-$jumalldat = count(lapo("SELECT * FROM laporan WHERE id_user = $iduser"));
+$jumalldat = count(lapo("SELECT * FROM report WHERE id_user = $iduser"));
 $jumhal = ceil($jumalldat / $jumdatph);
 $aktpage = (isset($_GET["page"])) ? $_GET["page"] : 1;
 $dtawl = ($jumdatph * $aktpage) - $jumdatph;
-$lap = lapo("SELECT * FROM laporan  WHERE id_user = $iduser LIMIT $dtawl, $jumdatph");
+$lap = lapo("SELECT * FROM report  WHERE id_user = $iduser LIMIT $dtawl, $jumdatph");
 if (isset($_POST["search"])) {
   $lap = carilap($_POST["katakunci"]);
   //   var_dump($lap);die;

@@ -46,18 +46,18 @@ if (isset($_POST["aptLap"])) {
 $nol = 0;
 $jumCbg = count(addBranch("SELECT * FROM cabang"));
 $jumKas = count(allKas("SELECT * FROM kantor_kas"));
-$jumLap = count(lapo("SELECT * FROM laporan"));
+$jumLap = count(lapo("SELECT * FROM report"));
 $habis = count(Allaset("SELECT * FROM aset WHERE sisa_bln_sst = $nol AND ssa_nlai_pnystan = $nol"));
 
 $allcbg = addBranch("SELECT * FROM cabang");
 
 $jumdatph = 10;
-$jumalldat = count(lapo("SELECT * FROM laporan"));
+$jumalldat = count(lapo("SELECT * FROM report"));
 $jumhal = ceil($jumalldat / $jumdatph);
 $aktpage = (isset($_GET["page"])) ? $_GET["page"] : 1;
 $dtawl = ($jumdatph * $aktpage) - $jumdatph;
 
-$lap = lapo("SELECT * FROM laporan LIMIT $dtawl, $jumdatph");
+$lap = lapo("SELECT * FROM report LIMIT $dtawl, $jumdatph");
 
 if (isset($_POST["searchLap"])) {
   $lap = carilap($_POST["katakunci"]);

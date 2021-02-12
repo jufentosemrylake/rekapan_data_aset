@@ -129,7 +129,7 @@ function lapo($query)
 }
 function carilap($aa)
 {
-    $cari = "SELECT * FROM laporan WHERE
+    $cari = "SELECT * FROM report WHERE
             id LIKE '%$aa%' OR
             nama_kankas LIKE '%$aa%' OR
             nama_laporan LIKE '%$aa%' OR
@@ -148,7 +148,7 @@ function createLapAdmin($a)
     $name = htmlspecialchars($a["nameLap"]);
     $cbg = htmlspecialchars($a["nama_cabang"]);
     $ks = htmlspecialchars($a["kks"]);
-    $insert = "INSERT INTO laporan(id,nama_laporan,periode,nama_cbg,nama_kankas) 
+    $insert = "INSERT INTO report(id,nama_laporan,periode,nama_cbg,nama_kankas) 
     VALUES ('$idLap','$name','$perio','$cbg','$ks')";
     //var_dump($insert);die;
     mysqli_query($knk, $insert);
@@ -166,10 +166,10 @@ function createLap($a)
     $akrPer = htmlspecialchars($a["tglEnd"]);
     $perio = $awlPer . ' - ' . $akrPer;
     $name = htmlspecialchars($a["nameLap"]);
-    $cbg = htmlspecialchars($a["nama_cabang"]);
-    $ks = htmlspecialchars($a["kks"]);
-    $insert = "INSERT INTO laporan(id,id_user,nama_cbg,nama_kankas,nama_laporan,periode,nama_cbg,nama_kankas) 
-    VALUES ('$idLap','$idUser','$nmCabang','$nmKas','$name','$perio','$cbg','$ks')";
+    //    $cbg = htmlspecialchars($a["nama_cabang"]);
+    //$ks = htmlspecialchars($a["kks"]);
+    $insert = "INSERT INTO report(id,id_user,nama_cbg,nama_kankas,nama_laporan,periode) 
+    VALUES ('$idLap','$idUser','$nmCabang','$nmKas','$name','$perio')";
     //var_dump($insert);die;
     mysqli_query($knk, $insert);
     return mysqli_affected_rows($knk);
@@ -181,10 +181,10 @@ function delLapo($idL)
     if ($jumAset > 0) {
         $del2 = "DELETE FROM aset WHERE id_lprn = '$idL'";
         mysqli_query($knk, $del2);
-        $del = "DELETE FROM laporan WHERE id = '$idL'";
+        $del = "DELETE FROM report WHERE id = '$idL'";
         mysqli_query($knk, $del);
     } else {
-        $del = "DELETE FROM laporan WHERE id = '$idL'";
+        $del = "DELETE FROM report WHERE id = '$idL'";
         mysqli_query($knk, $del);
     }
     return mysqli_affected_rows($knk);
@@ -201,7 +201,7 @@ function editLap($aC)
     $te = htmlspecialchars($aC["tEnd"]);
     $perio = $ts . ' - ' . $te;
     $lapName = htmlspecialchars($aC["tit"]);
-    $edit  = "UPDATE laporan SET 
+    $edit  = "UPDATE report SET 
                 id_user = '$idUsers',
                 nama_cbg  = '$kanCBG',
                 nama_kankas = '$kanKAS',
@@ -228,7 +228,7 @@ function addAset($a)
 {
     global $knk;
     $idLaporan = $_GET["id"];
-    $allLap = lapo("SELECT * FROM laporan WHERE id = '$idLaporan'")[0];
+    $allLap = lapo("SELECT * FROM report WHERE id = '$idLaporan'")[0];
     $idLaporan = $allLap['id'];
     $periode = $allLap['periode'];
     $periode   = explode(" - ", $periode);
@@ -328,7 +328,7 @@ function editAset($a)
 {
     global $knk;
     $idLaporan = $_GET["id"];
-    $allLap = lapo("SELECT * FROM laporan WHERE id = '$idLaporan'")[0];
+    $allLap = lapo("SELECT * FROM report WHERE id = '$idLaporan'")[0];
     $idLaporan = $allLap['id'];
     $periode = $allLap['periode'];
     $periode   = explode(" - ", $periode);
@@ -464,7 +464,7 @@ function daftar($d)
     $ambil = mysqli_query($knk, "SELECT username FROM users WHERE username = '$user'");
     if (mysqli_fetch_assoc($ambil)) {
         echo "<script>
-                    alert('Ganti Nama User');
+                    alert('Ganti Nama. Username Telah Digunakan');
                     </script>";
         return false;
     }
@@ -476,7 +476,7 @@ function daftar($d)
         return false;
     }
     $pass = password_hash($pass, PASSWORD_DEFAULT);
-    $query = "INSERT INTO users VALUES('','$lvlUS','$user','$nama','$pass','$cabang','$kas')";
+    $query = "INSERT INTO users VALUES('','$lvlUS','$user','$pass','$nama','$cabang','$kas')";
     mysqli_query($knk, $query);
     return mysqli_affected_rows($knk);
 }

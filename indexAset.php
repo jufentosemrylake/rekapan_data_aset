@@ -57,7 +57,7 @@ $dtawl = ($jumdatph * $aktpage) - $jumdatph;
 $ttlNLIjumlah = Allaset("SELECT SUM(nilai_jumlah) AS DATA FROM aset WHERE id_lprn = '$idLaporan'")[0];
 $TotalpnytBulan = allAset("SELECT SUM(pnystn_perBulan) AS DATA FROM aset WHERE id_lprn = '$idLaporan'")[0];
 $TTLsisaNILAIsst = allAset("SELECT SUM(ssa_nlai_pnystan) AS DATA FROM aset WHERE id_lprn = '$idLaporan'")[0];
-$edit  = "UPDATE laporan SET 
+$edit  = "UPDATE report SET 
                     ttlSSTbulan  = '$TotalpnytBulan[DATA]',
                     ttlNILAIjmlh = '$ttlNLIjumlah[DATA]',
                     ttlSISAnilaiPnyustan = '$TTLsisaNILAIsst[DATA]'
@@ -65,7 +65,7 @@ $edit  = "UPDATE laporan SET
                     id  = '$idLaporan'";
 mysqli_query($knk, $edit);
 
-$allLap = lapo("SELECT * FROM laporan WHERE id = '$idLaporan'")[0];
+$allLap = lapo("SELECT * FROM report WHERE id = '$idLaporan'")[0];
 $asets = Allaset("SELECT * FROM aset WHERE id_lprn = '$idLaporan' LIMIT $dtawl, $jumdatph");
 $tyHA = AllAmor("SELECT kelompok FROM amortisasi");
 //var_dump($tyHA);die;

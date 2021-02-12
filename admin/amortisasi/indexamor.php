@@ -45,7 +45,7 @@ if (isset($_POST["editAmor"])) {
 $nol = 0;
 $jumCbg = count(addBranch("SELECT * FROM cabang"));
 $jumKas = count(allKas("SELECT * FROM kantor_kas"));
-$jumLap = count(lapo("SELECT * FROM laporan"));
+$jumLap = count(lapo("SELECT * FROM report"));
 $habis = count(Allaset("SELECT * FROM aset WHERE sisa_bln_sst = $nol AND ssa_nlai_pnystan = $nol"));
 
 

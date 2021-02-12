@@ -44,16 +44,18 @@ if (isset($_POST["editCBG"])) {
 $nol = 0;
 $jumCbg = count(addBranch("SELECT * FROM cabang"));
 $jumKas = count(allKas("SELECT * FROM kantor_kas"));
-$jumLap = count(lapo("SELECT * FROM laporan"));
+$jumLap = count(lapo("SELECT * FROM report"));
 $habis = count(Allaset("SELECT * FROM aset WHERE sisa_bln_sst = $nol AND ssa_nlai_pnystan = $nol"));
 
-$jumdatph = 10;
+$jumdatph = 5;
 $jumalldat = count(addBranch("SELECT * FROM cabang"));
 $jumhal = ceil($jumalldat / $jumdatph);
 $aktpage = (isset($_GET["page"])) ? $_GET["page"] : 1;
 $dtawl = ($jumdatph * $aktpage) - $jumdatph;
 
-$cbg = addBranch("SELECT * FROM cabang LIMIT $dtawl, $jumdatph");
+
+$cbg = addBranch("SELECT * FROM cabang ");
+//$cbg = addBranch("SELECT * FROM cabang LIMIT $dtawl, $jumdatph");
 
 if (isset($_POST["searchCbg"])) {
   $cbg = SearchCbg($_POST["katakunci"]);
@@ -71,13 +73,10 @@ if (isset($_POST["searchCbg"])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>RDA / Kantor Cabang</title>
+  <title>RDA | Kantor Cabang</title>
 
   <!-- Custom fonts for this template-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link href="../../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
   <!-- Custom styles for this template-->
   <link href="../../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
@@ -121,7 +120,6 @@ if (isset($_POST["searchCbg"])) {
   </div>
   <!---##################################################################################################################---->
 
-  <!---################################################################################################################## -->
   <!--- Modal Update---->
   <div class="modal fade" id="cabangEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -355,9 +353,11 @@ if (isset($_POST["searchCbg"])) {
                 <div class="text-center">
                   <span class="btn btn-primary">Halaman</span>
                   <div class="btn-group">
+
                     <?php if ($aktpage > 1) : ?>
                       <a href="?page=<?= $aktpage - 1; ?>" class="btn" style="border-color: black;"><i class="fas fa-angle-left"></i></a>
                     <?php endif; ?>
+
                     <?php for ($a = 1; $a <= $jumhal; $a++) : ?>
                       <?php if ($a == $aktpage) : ?>
                         <a href="?page=<?= $a; ?>" class="btn btn-success" style="font-weight: bold; border-color: black;"><?= $a; ?>
@@ -370,6 +370,7 @@ if (isset($_POST["searchCbg"])) {
                     <?php if ($aktpage < $jumhal) : ?>
                       <a href="?page=<?= $aktpage + 1; ?>" class="btn" style="border-color: black;"><i class="fas fa-angle-right"></i></a>
                     <?php endif; ?>
+
                   </div>
                 </div>
               </div>
@@ -414,11 +415,6 @@ if (isset($_POST["searchCbg"])) {
   <script src="../../assets/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="../../assets/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="../../assets/js/demo/datatables-demo.js"></script>
 
   <script>
     $(document).ready(function() {

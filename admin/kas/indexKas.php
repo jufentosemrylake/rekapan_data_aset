@@ -45,7 +45,7 @@ if (isset($_POST["aptKas"])) {
 $nol = 0;
 $jumCbg = count(addBranch("SELECT * FROM cabang"));
 $jumKas = count(allKas("SELECT * FROM kantor_kas"));
-$jumLap = count(lapo("SELECT * FROM laporan"));
+$jumLap = count(lapo("SELECT * FROM report"));
 $habis = count(Allaset("SELECT * FROM aset WHERE sisa_bln_sst = $nol AND ssa_nlai_pnystan = $nol"));
 
 $AllCbg = allKas("SELECT kode_cabang , nama_cabang FROM cabang");
@@ -56,7 +56,8 @@ $jumhal = ceil($jumalldat / $jumdatph);
 $aktpage = (isset($_GET["page"])) ? $_GET["page"] : 1;
 $dtawl = ($jumdatph * $aktpage) - $jumdatph;
 
-$kas = allKas("SELECT * FROM kantor_kas LIMIT $dtawl, $jumdatph");
+$kas = allKas("SELECT * FROM kantor_kas ");
+//$kas = allKas("SELECT * FROM kantor_kas LIMIT $dtawl, $jumdatph");
 
 if (isset($_POST["searchKas"])) {
   $kas = SearchKanKas($_POST["katakunci"]);

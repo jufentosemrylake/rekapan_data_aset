@@ -9,7 +9,7 @@ if (!isset($_SESSION["login"])) {
 $nol = 0;
 $jumCbg = count(addBranch("SELECT * FROM cabang"));
 $jumKas = count(allKas("SELECT * FROM kantor_kas"));
-$jumLap = count(lapo("SELECT * FROM laporan"));
+$jumLap = count(lapo("SELECT * FROM report"));
 $habis = count(Allaset("SELECT * FROM aset WHERE sisa_bln_sst <= $nol"));
 $ttlAset = count(Allaset("SELECT * FROM aset "));
 $tnA = Allaset("SELECT SUM(nilai_buku) FROM aset ")[0];
